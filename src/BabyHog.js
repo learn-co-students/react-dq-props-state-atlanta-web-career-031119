@@ -12,28 +12,38 @@ export default class BabyHog extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      weight: 20,
+      eyeColorMapper: {
+        'blue'    :BlueBaby,
+        'sun'     :SunBaby,
+        'glowing' :GlowingBaby
+      }
+    }
   }
-
-  changeWeight = (e) => {
-    // nothing needs to change here
-    const newWeight = e.target.name === "+" ? (this.state.weight + 10) : (this.state.weight - 10)
-    this.setState({
-      weight: newWeight
-    })
-  }
-
+  
   render() {
+    
+    // nothing needs to change here
+    const changeWeight = (e) => {
+      const newWeight = e.target.name === "+" ? (this.state.weight + 10) : (this.state.weight - 10)
+      this.setState({
+        weight: newWeight
+      })
+    }
+
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
+        <h1>Name: {this.props.name}</h1>
+        <h3>Weight: {this.state.weight}</h3>
+        <h3>Hobby: {this.props.hobby}</h3>
+        <h4>Eye Color: {this.props.eyeColor}</h4>
+        <image src={this.state.eyeColorMapper[this.props.eyeColor]}/>
           
-        <Button name="+">
+        <Button name="+" onClick={changeWeight}>
           Increase Weight
         </Button>
-        <Button name="-">
+        <Button name="-" onClick={changeWeight}>
           Decrease Weight
         </Button>
 
