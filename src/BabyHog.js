@@ -5,15 +5,15 @@ import SunBaby from './assets/sun-eyes.png'
 import BlueBaby from './assets/blue-eyes.png'
 import GlowingBaby from './assets/glowing-eyes.png'
 
-// is there a way we could associate eye color string values with images? 
+// is there a way we could associate eye color string values with images?
 // perhaps so we could do something along the lines of `eyeColorMapper['blue'] and get back the right image?`
 
 export default class BabyHog extends Component {
 
   constructor(props) {
     super(props)
+    console.log(props)
   }
-
   changeWeight = (e) => {
     // nothing needs to change here
     const newWeight = e.target.name === "+" ? (this.state.weight + 10) : (this.state.weight - 10)
@@ -22,14 +22,25 @@ export default class BabyHog extends Component {
     })
   }
 
+  colorSource = (color) => {
+    if (color === 'sun'){
+      return SunBaby
+    } else if (color === 'blue'){
+      return BlueBaby
+    } else if (color === 'glow') {
+      return GlowingBaby
+    } else {
+      return normalBaby
+    }
+  }
   render() {
     return (
       <li className="hogbabies">
-        <h1>Name</h1>
-        <h3>Weight:</h3>
-        <h3>Hobby:</h3>
-        <h4>Eye Color:</h4>
-          
+        <h1>Name: {this.props.name}</h1>
+        <h3>Weight: 10</h3>
+        <h3>Hobby: {this.props.hobby}</h3>
+        <h4>Eye Color: {this.props.eyeColor}</h4>
+
         <Button name="+">
           Increase Weight
         </Button>
@@ -38,9 +49,9 @@ export default class BabyHog extends Component {
         </Button>
 
         <div className="hb-wrap">
-          <img src={normalBaby} style={{height: '200px'}} alt="MasterBlasterJrJr" />
+          <img src={this.colorSource(this.props.eyeColor)} style={{height: '200px'}} alt="MasterBlasterJrJr" />
         </div>
-        
+
       </li>
     )
   }
